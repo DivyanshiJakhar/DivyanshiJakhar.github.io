@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divyanshi Jakhar — Business Analytics & Growth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12162A;
+    --bg-panel:#191E38;
+    --bg-panel-2:#1E2440;
+    --ink:#F1EEE6;
+    --ink-dim:#A6ACC6;
+    --ink-faint:#6E759A;
+    --gold:#E5A83C;
+    --teal:#4FA495;
+    --rose:#D97C82;
+    --line:rgba(241,238,230,0.11);
+    --line-strong:rgba(241,238,230,0.22);
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--gold); color:var(--bg); }
+  a{ color:inherit; }
+  img{max-width:100%; display:block;}
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 32px; }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em; }
+
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,22,42,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:var(--maxw); margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-weight:600; font-size:18px; letter-spacing:-0.01em;
+  }
+  .brand span{ color:var(--gold); font-style:italic; font-weight:400; }
+  .navlinks{ display:flex; gap:28px; list-style:none; }
+  .navlinks a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    text-decoration:none; color:var(--ink-dim);
+    transition:color .2s ease;
+  }
+  .navlinks a:hover{ color:var(--gold); }
+  .navtoggle{ display:none; background:none; border:none; color:var(--ink); font-size:22px; cursor:pointer; }
+
+  @media (max-width:760px){
+    .navlinks{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--bg-panel);
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease;
+      border-bottom:1px solid var(--line);
+    }
+    .navlinks.open{ max-height:320px; }
+    .navlinks a{ padding:16px 32px; display:block; border-top:1px solid var(--line); }
+    .navtoggle{ display:block; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 0;
+    position:relative;
+  }
+  .hero .eyebrow{ margin-bottom:22px; }
+  .hero h1{
+    font-size:clamp(38px, 6vw, 68px);
+    line-height:1.06;
+    max-width:900px;
+  }
+  .hero h1 em{ color:var(--gold); font-style:italic; font-weight:400; }
+  .hero .lede{
+    margin-top:26px;
+    max-width:560px;
+    font-size:18px;
+    color:var(--ink-dim);
+  }
+  .hero .actions{
+    margin-top:38px;
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; letter-spacing:0.05em;
+    padding:13px 22px;
+    border-radius:2px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .btn-primary{ background:var(--gold); color:#1A1300; font-weight:500; }
+  .btn-primary:hover{ transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* KPI strip */
+  .kpis{
+    margin-top:64px;
+    display:grid; grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);
+  }
+  .kpi{ padding:26px 0; border-right:1px solid var(--line); }
+  .kpi:last-child{ border-right:none; }
+  .kpi .num{
+    font-family:'Fraunces', serif; font-weight:500; font-size:34px; color:var(--gold);
+  }
+  .kpi .label{
+    margin-top:6px;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint);
+  }
+  @media (max-width:640px){
+    .kpis{ grid-template-columns:1fr; }
+    .kpi{ border-right:none; border-bottom:1px solid var(--line); }
+  }
+
+  /* Funnel divider — signature element */
+  .funnel{
+    margin-top:70px;
+    position:relative;
+    height:150px;
+  }
+  .funnel svg{ width:100%; height:100%; display:block; }
+  .funnel-labels{
+    max-width:var(--maxw); margin:0 auto; padding:0 32px;
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    position:absolute; bottom:14px; left:0; right:0;
+  }
+  .funnel-labels div{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; text-align:center; color:var(--ink-faint);
+  }
+  .funnel-labels div:nth-child(1){ color:var(--teal); }
+  .funnel-labels div:nth-child(2){ color:var(--gold); }
+  .funnel-labels div:nth-child(3){ color:var(--rose); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:88px 0; border-top:1px solid var(--line); }
+  .section-head{ margin-bottom:48px; max-width:640px; }
+  .section-head h2{ font-size:clamp(26px,3.6vw,36px); margin-top:14px; }
+  .section-head p{ margin-top:14px; color:var(--ink-dim); }
+
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .skill-col{ background:var(--bg); padding:32px; }
+  .skill-col h3{ font-size:19px; font-weight:500; }
+  .skill-col .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .skill-col:nth-child(1) .tag{ color:var(--teal); }
+  .skill-col:nth-child(2) .tag{ color:var(--gold); }
+  .skill-col:nth-child(3) .tag{ color:var(--rose); }
+  .skill-list{ margin-top:20px; list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .skill-list li{
+    font-size:14.5px; color:var(--ink-dim);
+    padding-bottom:10px; border-bottom:1px solid var(--line);
+  }
+  @media (max-width:760px){ .skills-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    border:1px solid var(--line);
+    background:var(--bg-panel);
+    padding:36px;
+    margin-bottom:22px;
+    position:relative;
+  }
+  .project-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+  }
+  .project-title{ font-size:23px; font-weight:500; }
+  .project-sub{ margin-top:4px; color:var(--ink-faint); font-size:13.5px; }
+  .stage-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em;
+    text-transform:uppercase; padding:6px 12px; border-radius:20px; white-space:nowrap;
+  }
+  .stage-tofu{ background:rgba(79,164,149,0.14); color:var(--teal); border:1px solid rgba(79,164,149,0.35); }
+  .stage-mofu{ background:rgba(229,168,60,0.14); color:var(--gold); border:1px solid rgba(229,168,60,0.35); }
+  .stage-bofu{ background:rgba(217,124,130,0.14); color:var(--rose); border:1px solid rgba(217,124,130,0.35); }
+  .project-tools{
+    margin-top:18px; font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--ink-faint); letter-spacing:0.02em;
+  }
+  .project-list{ margin-top:20px; list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .project-list li{
+    padding-left:20px; position:relative; color:var(--ink-dim); font-size:15px;
+  }
+  .project-list li::before{
+    content:"→"; position:absolute; left:0; color:var(--gold);
+  }
+
+  .note-card{
+    border:1px dashed var(--line-strong);
+    padding:28px 32px; margin-top:8px;
+    font-size:14.5px; color:var(--ink-faint);
+  }
+  .note-card strong{ color:var(--ink-dim); }
+
+  /* ---------- EDUCATION ---------- */
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line-strong);
+  }
+  .tl-item{ position:relative; padding-bottom:38px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--gold);
+  }
+  .tl-year{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--gold); letter-spacing:0.06em; }
+  .tl-item h3{ font-size:19px; margin-top:6px; font-weight:500; }
+  .tl-item p{ color:var(--ink-dim); font-size:14.5px; margin-top:4px; }
+
+  /* ---------- CERTS ---------- */
+  .cert-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .cert{ background:var(--bg); padding:26px 30px; }
+  .cert h3{ font-size:16px; font-weight:500; }
+  .cert p{ margin-top:6px; font-size:13px; color:var(--ink-faint); font-family:'IBM Plex Mono', monospace; }
+  @media (max-width:640px){ .cert-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- POR / EXTRAS ---------- */
+  .two-col{ display:grid; grid-template-columns:1.3fr 1fr; gap:60px; }
+  @media (max-width:800px){ .two-col{ grid-template-columns:1fr; gap:44px; } }
+  .por-item{ padding:18px 0; border-bottom:1px solid var(--line); }
+  .por-item:first-child{ padding-top:0; }
+  .por-item h3{ font-size:15.5px; font-weight:600; font-family:'Inter'; }
+  .por-item p{ margin-top:5px; color:var(--ink-dim); font-size:14px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; }
+  .chip{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; padding:8px 14px;
+    border:1px solid var(--line-strong); border-radius:20px; color:var(--ink-dim);
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ border-top:1px solid var(--line); padding:88px 0 50px; }
+  .contact-head{ max-width:640px; }
+  .contact-email{
+    display:inline-block; margin-top:26px;
+    font-family:'Fraunces', serif; font-size:clamp(24px,4vw,34px);
+    color:var(--gold); text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:4px;
+  }
+  .foot-meta{
+    margin-top:64px; padding-top:26px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">Divyanshi <span>Jakhar</span></div>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#skills">Skills</a></li>
+       <li><a href="#approach">Approach</a></li>
+      <li><a href="#projects">Campaigns</a></li>
+      <li><a href="#dev-projects">Dev Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="navtoggle" id="navtoggle" aria-label="Toggle menu">☰</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero wrap" style="border-top:none; padding-top:96px;">
+    <p class="eyebrow">MBA · Business Analytics · BITS Pilani · 2026–28</p>
+    <h1>Where <em>business thinking</em><br>meets data and growth.</h1>
+    <p class="lede">A Computer Science graduate now pursuing an MBA in Business Analytics. I bring together technology, marketing, and analytical thinking to understand problems, build practical solutions, and make better business decisions.</p>
+    <div class="actions">
+      <a href="#projects" class="btn btn-primary">View projects ↓</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">3</div><div class="label">Applied marketing projects</div></div>
+      <div class="kpi"><div class="num">120h</div><div class="label">Digital marketing & analytics training</div></div>
+      <div class="kpi"><div class="num">8.61</div><div class="label">B.Tech CS CGPA · VIT Bhopal</div></div>
+    </div>
+  </section>
+
+  <div class="funnel wrap">
+    <svg viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true">
+      <polygon points="0,0 1000,0 720,150 280,150" fill="none" stroke="rgba(241,238,230,0.16)" stroke-width="1"/>
+      <line x1="333.3" y1="0" x2="426.6" y2="150" stroke="rgba(241,238,230,0.11)" stroke-width="1"/>
+      <line x1="666.6" y1="0" x2="573.3" y2="150" stroke="rgba(241,238,230,0.11)" stroke-width="1"/>
+    </svg>
+    <div class="funnel-labels">
+      <div>Awareness</div>
+      <div>Consideration</div>
+      <div>Conversion</div>
+    </div>
+  </div>
+
+  <section id="skills" class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">What I work with</p>
+      <h2>Skills, grouped by what they're for.</h2>
+      <p>Split the way I'd brief a team: the data layer, the growth layer, and the tools that connect them.</p>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-col">
+        <span class="tag">Analytics &amp; Data</span>
+        <h3>Reading the numbers</h3>
+        <ul class="skill-list">
+          <li>Excel</li>
+          <li>SQL</li>
+          <li>Python</li>
+          <li>Java</li>
+          <li>Google Analytics (GA4)</li>
+          <li>Data-driven decision making</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <span class="tag">Growth &amp; Marketing</span>
+        <h3>Running the campaign</h3>
+        <ul class="skill-list">
+          <li>Meta Ads</li>
+          <li>Google Ads</li>
+          <li>YouTube Ads</li>
+          <li>SEO</li>
+          <li>Content strategy</li>
+          <li>Email marketing</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <span class="tag">Tools &amp; Platforms</span>
+        <h3>What ties it together</h3>
+        <ul class="skill-list">
+          <li>CRM systems</li>
+          <li>TubeBuddy</li>
+          <li>Google Cloud fundamentals</li>
+          <li>Web development basics</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Selected work</p>
+      <h2>Three campaigns, three funnel stages.</h2>
+      <p>Coursework and applied projects from my digital marketing and analytics training — each tagged by the funnel stage it was built to solve.</p>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Ecoverse EV</div>
+          <div class="project-sub">Digital marketing · Full-funnel campaign</div>
+        </div>
+        <span class="stage-tag stage-tofu">Awareness → Conversion</span>
+      </div>
+      <div class="project-tools">FOCUS · Full-funnel planning · Audience · KPIs</div>
+      <div class="project-tools">TOOLS · Meta Ads · Google Ads · YouTube Ads · GA4 · CRM</div>
+      <ul class="project-list">
+        <li>Planned a 6-week multi-channel campaign spanning awareness, consideration, and test-drive conversion stages.</li>
+        <li>Mapped audience personas, channel strategy, and lead-generation KPIs — CTR, leads, and conversion rate.</li>
+      </ul>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Fitness Influencer Growth Strategy</div>
+          <div class="project-sub">Digital marketing · Content &amp; positioning</div>
+        </div>
+        <span class="stage-tag stage-mofu">Consideration</span>
+      </div>
+      <div class="project-tools">FOCUS · Positioning · Content · Audience growth</div>
+      <div class="project-tools">TOOLS · YouTube · Instagram · SEO · Content Strategy · TubeBuddy</div>
+      <ul class="project-list">
+        <li>Evaluated content, engagement, and audience trends to identify growth and positioning opportunities.</li>
+        <li>Structured a TOFU–MOFU–BOFU content strategy covering planning, CTAs, SEO, and influencer collaborations.</li>
+      </ul>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div>
+          <div class="project-title">SkillCulture</div>
+          <div class="project-sub">Workshop lead-generation campaign</div>
+        </div>
+        <span class="stage-tag stage-bofu">Conversion</span>
+      </div>
+      <div class="project-tools">FOCUS · Lead generation · Conversion · Funnel design</div>
+      <div class="project-tools">TOOLS · Meta Ads · Google Analytics · SEO · Email Marketing · Content Strategy</div>
+      <ul class="project-list">
+        <li>Segmented target audiences and mapped personas, SMART goals, and a 5-stage marketing funnel for registrations.</li>
+        <li>Designed a conversion-focused landing page, aligning Meta Ads, SEO, email, and content around registration KPIs.</li>
+      </ul>
+    </div>
+
+    <div class="note-card reveal">
+      <strong>Currently building:</strong> a SQL/Python case study to sit alongside these — bringing the analytics half of my MBA into the portfolio directly, not just through the marketing data I've already worked with.
+    </div>
+  </section>
+
+  <section id="dev-projects" class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">From the CS side</p>
+      <h2>Development projects.</h2>
+      <p>Built during my B.Tech — front-end and blockchain work in small teams, before the pivot toward analytics.</p>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Mapcraft</div>
+          <div class="project-sub">Front-End Developer · Team of 4 · Jan – Apr 2022</div>
+        </div>
+        <span class="stage-tag stage-tofu">Live</span>
+      </div>
+      <div class="project-tools">HTML · CSS · JavaScript · Google Cloud Platform</div>
+      <ul class="project-list">
+        <li>Personalized map experience layered on Google Maps, letting users pick custom themes and designs.</li>
+        <li>Built and shipped the front end as part of a 4-person team.</li>
+      </ul>
+      <div style="margin-top:20px;">
+        <a href="https://buoyant-dynamo-341514-web.app/" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:10px 18px; font-size:12px;">View live site ↗</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Digital Warranty System (NFTs)</div>
+          <div class="project-sub">Front-End Developer · Team of 3 · Oct 2022 – Oct 2023</div>
+        </div>
+        <span class="stage-tag stage-mofu">Blockchain</span>
+      </div>
+      <div class="project-tools">HTML · CSS · JavaScript · React.js · Blockchain · Testnet · Hardhat</div>
+      <ul class="project-list">
+        <li>Blockchain-based warranties designed to replace physical warranty documents with digital, tamper-proof versions.</li>
+        <li>Consumers could use the NFT to prove ownership and transfer it on resale.</li>
+      </ul>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Useful Resources</div>
+          <div class="project-sub">Front-End Developer · Team of 4 · Jun – Dec 2020</div>
+        </div>
+        <span class="stage-tag stage-bofu">Web</span>
+      </div>
+      <div class="project-tools">HTML · CSS · Bootstrap</div>
+      <ul class="project-list">
+        <li>A curated hub of free websites, Chrome extensions, and apps for college students, organized across 9 fields including design and education.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="approach" class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">How I approach problems</p>
+      <h2>Understand first. Analyse second. Build with purpose.</h2>
+      <p>I like working at the intersection of business questions and practical execution — starting with the problem, using data and frameworks to structure it, and turning the analysis into an actionable direction.</p>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-col">
+        <span class="tag">01 · Frame</span>
+        <h3>Define the problem</h3>
+        <ul class="skill-list">
+          <li>Clarify the objective</li>
+          <li>Understand the audience</li>
+          <li>Identify the decision that needs to be made</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <span class="tag">02 · Analyse</span>
+        <h3>Find the signal</h3>
+        <ul class="skill-list">
+          <li>Use data and relevant frameworks</li>
+          <li>Compare alternatives</li>
+          <li>Separate observations from assumptions</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <span class="tag">03 · Act</span>
+        <h3>Make it practical</h3>
+        <ul class="skill-list">
+          <li>Translate insights into actions</li>
+          <li>Connect recommendations to measurable goals</li>
+          <li>Build and test where possible</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="section-head reveal" style="margin-bottom:36px;">
+          <p class="eyebrow">Background</p>
+          <h2>Education</h2>
+        </div>
+        <div class="timeline reveal">
+          <div class="tl-item">
+            <div class="tl-year">2026 — 2028</div>
+            <h3>MBA, Business Analytics</h3>
+            <p>BITS Pilani</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2020 — 2024</div>
+            <h3>B.Tech, Computer Science</h3>
+            <p>VIT Bhopal · CGPA 8.61</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2018</div>
+            <h3>HSC (PCM)</h3>
+            <p>Tagore Public School, Palwal · 87.6%</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-head reveal" style="margin-bottom:36px;">
+          <p class="eyebrow">Beyond the classroom</p>
+          <h2>Positions &amp; interests</h2>
+        </div>
+        <div class="reveal">
+          <div class="por-item">
+            <h3>Core Member — Server Monks Community Organizing Team</h3>
+            <p>Assisted in planning and coordinating community initiatives and events.</p>
+          </div>
+          <div class="por-item">
+            <h3>Organizing Coordinator — IoT Webinar</h3>
+            <p>Organized the planning and execution of an IoT webinar.</p>
+          </div>
+          <div class="por-item">
+            <h3>Core Member — Art Club</h3>
+            <p>Contributed to organizing and coordinating club activities.</p>
+          </div>
+          <div class="chip-row">
+            <span class="chip">Sketching</span>
+            <span class="chip">Hackathons</span>
+            <span class="chip">Reading</span>
+            <span class="chip">German — A2</span>
+            <span class="chip">Group discussions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Credentials</p>
+      <h2>Certifications</h2>
+    </div>
+    <div class="cert-grid reveal">
+      <div class="cert">
+        <h3>Certificate Program in Digital Marketing &amp; Analytics</h3>
+        <p>IIM Mumbai × NSDC — 120 hrs — 2025–26</p>
+      </div>
+      <div class="cert">
+        <h3>Data Analytics</h3>
+        <p>Google — Coursera</p>
+      </div>
+      <div class="cert">
+        <h3>Data-Driven Decision Making</h3>
+        <p>Google</p>
+      </div>
+      <div class="cert">
+        <h3>Google Cloud Computing Foundations</h3>
+        <p>Google</p>
+      </div>
+      <div class="cert">
+        <h3>Fundamentals of Data Analytics</h3>
+        <p>Leaps</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="internships" class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Experience</p>
+      <h2>Internships</h2>
+    </div>
+    <div class="reveal" style="display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line);">
+      <div style="background:var(--bg); padding:26px 30px;">
+        <h3 style="font-size:16px; font-weight:600;">Web Development Intern — Ekodemy India Pvt. Ltd., Gurugram</h3>
+        <p style="font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-faint); margin-top:6px;">Jan 2023 – Mar 2023</p>
+      </div>
+      <div style="background:var(--bg); padding:26px 30px;">
+        <h3 style="font-size:16px; font-weight:600;">Data Science Learning Intern — Teachnook, Bangalore (Online)</h3>
+        <p style="font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-faint); margin-top:6px;">Oct 2022 – Jan 2023</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact" class="wrap">
+  <div class="contact-head reveal">
+    <p class="eyebrow">Let's talk</p>
+    <h2 style="font-size:clamp(26px,4vw,38px); margin-top:14px;">Let’s build something useful with data.</h2>
+    <a class="contact-email" href="mailto:h20260850@pilani.bits-pilani.ac.in">h20260850@pilani.bits-pilani.ac.in</a>
+  </div>
+  <div class="foot-meta">
+    <span>Divyanshi Jakhar — BITS Pilani</span>
+    <span>LinkedIn · GitHub · Portfolio</span>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navtoggle');
+  const links = document.getElementById('navlinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
